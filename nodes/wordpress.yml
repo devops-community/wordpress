@@ -33,8 +33,7 @@ configuration:
   nginx:
     vhosts:
       - id: wordpress
-        support: 
-          - php
+        indexes: index.php
         routes:
           - uri: '/'
             type: static
