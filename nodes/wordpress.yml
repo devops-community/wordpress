@@ -1,0 +1,43 @@
+# Find out more about nodes: http://docs.devo.ps/manual/nodes
+
+id: wordpress
+name: Wordpress node
+type: server
+
+# Define the provider details - both location and image are optional
+# Refer to the documentation to know more about the defaults
+provider:
+  name: "{{ provider.name }}"
+  size: "{{ provider.size }}"
+  # location:
+  # image: 
+
+
+services:
+  mysql: "*"
+  php: "*"
+  nginx: "*"
+
+configuration:
+  mysql:
+    # Define your MySQL users
+    users:
+      - name: wordpress
+    # Define your MySQL databases and which user has access
+    databases:
+      - name: wordpress
+        users: 
+          - wordpress
+
+  # Add the frontend nginx vhost to serve the uwsgi app
+  nginx:
+    vhosts:
+      - id: wordpress
+        support: 
+          - php
+        routes:
+          - uri: '/'
+            type: static
+          - uri: '~ \.php$'
+            type: fastcgi
+            to: '{{ nodes.wordpress.configuration.php.fpm.pool.listen }}'

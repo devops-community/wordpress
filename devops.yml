@@ -1,0 +1,13 @@
+name: Wordpress
+description: A simple boilerplate setup for your Wordpress blog, using NGINX, PHP and MySQL.
+image: https://raw.githubusercontent.com/devops-community/wordpress/master/wordpress-logo.png
+vars:
+  provider.name:
+    label: Cloud provider
+    default: digitalocean
+    description: The id of the provider you want to use, see http://docs.devo.ps/manual/nodes/#format
+  provider.size:
+    label: Server size
+    default: 66
+    description: Size of the server you will deploy your app on, see http://docs.devo.ps/providers/digitalocean/
+

@@ -1,0 +1,22 @@
+# Find out more about tasks: http://docs.devo.ps/manual/tasks
+
+id: install-wordpress
+name: Install Wordpress blog
+type: task
+
+targets:
+  - wordpress
+
+vars:
+  workdir: /var/www/wordpress
+
+steps:
+  - run: devops scripts/install-wordpress.sh
+    options:
+      # Those options are available within the script as ENV variables
+      DB_NAME: wordpress
+      DB_USER: wordpress
+      DB_PASS: '{{ nodes.wordpress.configuration.mysql.users.wordpress.password }}'
+      WORKDIR: '{{ workdir }}'
+      RUN_USER: '{{ nodes.wordpress.configuration.php.fpm.pool.user }}'
+
