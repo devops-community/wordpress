@@ -7,6 +7,10 @@ type: task
 targets:
   - wordpress
 
+triggers:
+  events:
+    - node.wordpress.create.success
+
 vars:
   workdir: /var/www/wordpress
 
