@@ -1,0 +1,30 @@
+# Find out more about tasks: http://docs.devo.ps/manual/tasks
+
+id: backup-wordpress
+name: Backup Wordpress
+type: task
+
+targets:
+  - wordpress
+
+triggers:
+  crons:
+    # At 4am every day
+    - '0 4 * * *'
+  webhooks: 
+    - path: backup/wordpress
+
+vars:
+  workdir: /var/www/wordpress
+
+steps:
+  # Backup the MySQL wordpress database and workdir
+  - run: devops backup run
+    options:
+      path: '/opt/backup/%Y/%m/%d/%H-%M/wordpress'
+      files:
+        - '{{ workdir }}'
+      mysql_dbs:
+        - wordpress
+
+  # All the backups are available in /opt/backup/YYYY/MM/DD/HH-MM/wordpress

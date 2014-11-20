@@ -14,7 +14,8 @@ provider:
 
 
 services:
-  mysql: "*"
+  backup: '*'
+  mysql: '*'
   php: "*"
   nginx: "*"
 
